@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{ DEFAULT_LANG|default('ja') }}">
+
+<head>
+  {% include "head.html" %}
+</head>
+
+<body>
+  <!-- navbar -->
+  {% include "navbar.html" %}
+
+  {% block content %}
+  {% endblock content %}
+
+  <!-- footer -->
+  {% include "footer.html" %}
+
+  <script defer src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/bootstrap.min.js"></script>
+  <!-- highlight.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+
+</html>

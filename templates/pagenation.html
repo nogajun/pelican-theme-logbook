@@ -1,0 +1,20 @@
+{% if DEFAULT_PAGINATION %}
+{% set first_page = articles_paginator.page(1) %}
+{% set last_page = articles_paginator.page(articles_paginator.num_pages) %}
+  <nav class="paginator text-center my-3 mx-auto">
+    <ul class="pagination justify-content-center">
+      <!-- Previous button -->
+      {% if articles_page.has_previous() %}
+      <li class="page-item">
+        <a class="page-link text-dark" href="{{ SITEURL }}/{{ articles_previous_page.url }}" tabindex="-1">&#9664; Previous</a>
+      </li>
+      {% endif %}
+        <!-- Next button -->
+      {% if articles_page.has_next() %}
+      <li class="page-item">
+        <a class="page-link text-dark" href="{{ SITEURL }}/{{ articles_next_page.url }}">Next &#9658;</a>
+      </li>
+      {% endif %}
+      </ul>
+  </nav>
+{% endif %}

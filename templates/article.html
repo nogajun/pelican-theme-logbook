@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row my-0 my-md-5">
+
+    <main class="col col-md-10 col-lg-8 col-xl-7 col-xxl-6 mx-auto p-0">
+      <article class="entry">
+        <header class="entry__header">
+          <!-- cover image -->
+          {% if article.cover %}
+          <figure>
+            <picture>
+              <img src="{{ attach }}/images/{{ article.cover }}" class="img-fluid entry__cover mb-md-5" alt="">
+            </picture>
+          </figure>
+          {% endif %}
+          <!-- page title -->
+          <h1 class="mt-4 mt-md-5 mx-3 mx-md-0 h2 fw-bold">{{ article.title }}</h1>
+          <div class="row mt-4 mt-md-3 mx-3 mx-md-0 d-flex align-items-end entry__header_info">
+            <!-- author icon -->
+            <div class="col-1 me-3 me-md-0">
+              <img src="{% if article.author.image %}{{ article.author.image }}{% else %}{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/author.webp{% endif %}" height="32px" width="32px" alt="{{ article.author }}" class="rounded-circle">
+            </div>
+            <!-- author data -->
+            <div class="col-4">
+              <span>{{ article.author }}</span><br>
+              <time datetime="{{ article.date.isoformat() }}" class="text-muted">{{ article.locale_date }}</time>
+            </div>
+            <!-- share button -->
+            <div class="col share-button g-0">
+              <p class="h5 text-end m-0 p-0 align-bottom">
+                <a href="https://twitter.com/share?url={{ SITEURL }}/{{ article.url }}&text={{ article.title }}+%7C+{{ SITENAME }}%3A+" rel="nofollow" target="_blank" class="share-button-twitter"><i class="bi bi-twitter"></i></a>
+                <a href="//www.facebook.com/share.php?u={{ SITEURL }}/{{ article.url }}" rel="nofollow" target="_blank" class="ms-1 ms-md-2 share-button-facebook"><i class="bi bi-facebook"></i></a>
+                <a href="web+mastodon://share?text={{ article.title }}+%7C+{{ SITENAME }}%3A+{{ SITEURL }}/{{ article.url }}" rel="nofollow" target="_blank" class="ms-1 ms-md-2 share-button-mastodon"><i class="bi bi-mastodon"></i></a>
+                <a href="//timeline.line.me/social-plugin/share?url=&text=" target="_blank" rel="nofollow" class="ms-1 ms-md-2 share-button-line"><i class="bi bi-chat-fill"></i></a>
+                <a href="//b.hatena.ne.jp/add?mode=confirm&url={{ SITEURL }}/{{ article.url }}&title={{ article.title }}+%7C+{{ SITENAME }}" rel="nofollow" class="ms-1 ms-md-2 share-button-hatena"><i class="bi bi-journal-bookmark-fill"></i></a>
+                <a href="//getpocket.com/edit?url={{ SITEURL }}/{{ article.url }}&title={{ article.title }}+%7C+{{ SITENAME }}" rel="nofollow" target="_blank" class="ms-1 ms-md-2 share-button-pocket"><i class="bi bi-bookmark-plus-fill"></i></a>
+              </p>
+            </div>
+          </div>
+        </header>
+
+        <!-- full content -->
+        <section class="mt-5 mx-3 mx-md-0 entry__content">
+          {{ article.content }}
+        </section>
+
+        <!-- category and tags -->
+        <footer class="mt-4 mx-3 mx-md-0 entry__footer">
+          <ul class="d-inline-flex list-unstyled">
+            <!-- category -->
+            {% if article.category %}
+            <li class="border rounded p-1 me-2 entry__categories">
+              <a href="{{ SITEURL }}/{{ category.url }}" class="text-body text-decoration-none">{{ article.category }}</a>
+            </li>
+            {% endif %}
+            <!-- tags -->
+            {% if article.tags %}
+              {% for tag in article.tags %}
+              <li class="border rounded p-1 me-2 entry__tags">
+                <a href="{{ SITEURL }}/{{ tag.url }}" class="text-body text-decoration-none">{{ tag }}</a>
+              </li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+
+          <div class="entry__authorbox mt-5">
+            <div class="row d-flex align-items-start">
+              <div class="col-3 col-md-2">
+                <img src="{% if article.author.image %}{{ article.author.image }}{% else %}{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/author.webp{% endif %}" alt="{{ article.author }}" width="80px" height="80px" class="rounded-circle">
+              </div>
+              <div class="col">
+                <h5 class="h5 mb-0 fw-bold">Author</h5>
+                <p class="h6 mb-3">{{ article.author }}</p>
+                <p class="h5 share-button">
+                  {% for name, link in SOCIAL %}
+                    <a href="{{ link }}" class="share-button-{{ name|lower }}"><i class="me-2 bi bi-{{ name|lower }}"></i></a>
+                  {% endfor %}
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </footer>
+      </article>
+    </main>
+
+  </div>
+</div>
+{% endblock content %}

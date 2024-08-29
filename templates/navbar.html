@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-md navbar-light sticky-top bg-white border-bottom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ SITEURL }}/">
+    {% if SITELOGO %}
+      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/{{SITELOGO}}" alt="{{ SITENAME }}" width="30">
+    {% else %}
+      {{ SITENAME }}
+    {% endif %}
+  </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav me-md-auto">
+          <!-- <li class="nav-item"><a class="nav-link" href="{{ SITEURL }}/">Home</a></li> -->
+          {% if pages %}
+            {% for page in pages %}
+              <li class="nav-item"><a class="nav-link" href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+
+        <!-- Custom search form if the plugin "search" is enabled -->
+        {% if "tipue_search" is plugin_enabled %}
+          <form class="d-flex">
+            <input id="search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <script>
+              function searchNow() {
+                var searchURL = "<?php echo Theme::siteUrl(); ?>search/";
+                window.open(searchURL + document.getElementById("search-input").value, "_self");
+              }
+              document.getElementById("search-input").onkeypress = function(e) {
+                if (!e) e = window.event;
+                var keyCode = e.keyCode || e.which;
+                if (keyCode == '13') {
+                  searchNow();
+                  return false;
+                }
+              }
+            </script>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>

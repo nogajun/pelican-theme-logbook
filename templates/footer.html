@@ -1,0 +1,16 @@
+<div class="container">
+  <footer class="py-1 my-2 py-lg-3 my-lg-4">
+    <ul class="nav justify-content-center mb-2">
+    {% if pages %}
+      {% for page in pages %}
+        <li class="nav-item"><a class="nav-link px-2 text-muted" href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
+      {% endfor %}
+    {% endif %}
+</ul>
+    <p class="h6 text-center share-button pb-3 mb-3">
+      {% for name, link in SOCIAL %}
+        <a href="{{ link }}" target="_blank" class="share-button-{{ name|lower }}" rel="me"><i class="me-2 bi bi-{{ name|lower }}"></i></a>
+      {% endfor %}
+    </p>
+  </footer>
+</div>

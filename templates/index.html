@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "header.html" %}
+
+<div class="container-lg">
+  <div class="row">
+    <div class="col-12 col-xl-10 col-xxl-9 mx-auto">
+
+      <!-- card -->
+      <main class="row row-cols-1 row-cols-md-2 row-cols-xl-3 my-3">
+        {% for article in articles_page.object_list %}
+        <!-- card -->
+        <div class="col mb-4 mb-xl-5">
+          <article class="card h-100 border-0">
+            <img class="card-img-top"
+              src="{% if article.cover %}{{ attach }}/images/{{ article.cover }}{% else %}{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/noimg.webp{% endif %}" alt=""
+              width="306px" height="160px">
+            <section class="card-body p-0 pt-3">
+              <h3 class="card-title h5 fw-bold"><a href="{{ SITEURL }}/{{ article.url }}" class="stretched-link">{{ article.title }}</a></h3>
+              <p class="card-text text-muted">{{ article.content|striptags|truncate(50,true,"...",0) }}</p>
+            </section>
+            <footer class="card-footer border-0 d-inline-flex mt-2 p-0 bg-white">
+              <img src="{% if article.author.image %}{{ article.author.image }}{% else %}{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/author.webp{% endif %}" alt="Author" width="24px" height="24px" class="rounded-circle m-1 me-2">
+              <small class="align-text-bottom">
+                <span class="card-author">{{ article.author }}</span><br>
+                <time datetime="{{ article.date.isoformat() }}" class="card-date text-muted">{{ article.locale_date }}</time>
+              </small>
+            </footer>
+          </article>
+        </div>
+        {% endfor %}
+      </main>
+
+      <!-- pagenation -->
+      {% include "pagenation.html" %}
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
